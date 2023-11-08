@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Button,
   Flex,
   Heading,
   Select,
@@ -15,8 +16,33 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { useEffect } from "react";
+
+const tele = window.Telegram.WebApp;
 
 export default function Home() {
+  useEffect(() => {
+    tele && tele.ready();
+  }, []);
+
+  const handleButton = useCallback(() => {
+    if (!tele) return;
+    tele.MainButton.text = "Send Message";
+    // clicking on main button sends a hi to the user using his name
+    try {
+      tele.MainButton.onClick = () => {
+        tele.getMyName().then((name) => {
+          tele.sendMessage({
+            text: `Hi ${name}!`,
+          });
+        });
+      };
+    } catch (error) {
+      console.error(error);
+    } finally {
+      tele.MainButton.show();
+    }
+  }, []);
   return (
     <main className="flex min-h-screen flex-col items-center py-16 gap-4 px-4">
       <Heading as="h1" size="lg" className="text-center">
@@ -74,6 +100,7 @@ export default function Home() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
+      <Button onClick={() => handleButton()}>Teletele</Button>
     </main>
   );
 }
