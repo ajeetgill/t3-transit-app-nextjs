@@ -13,10 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <>
       <Head>
-        <script
-          src="https://telegram.org/js/telegram-web-app.js"
-          async
-        ></script>
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>
       </Head>
       <html lang="en">
         <body>
