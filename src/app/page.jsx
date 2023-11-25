@@ -4,8 +4,6 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
-  Button,
   Flex,
   Heading,
   Select,
@@ -15,45 +13,19 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import Image from "next/image";
-import { useEffect } from "react";
-
-const tele = window.Telegram.WebApp;
 
 export default function Home() {
-  useEffect(() => {
-    tele && tele.ready();
-  }, []);
-
-  const handleButton = useCallback(() => {
-    if (!tele) return;
-    tele.MainButton.text = "Send Message";
-    // clicking on main button sends a hi to the user using his name
-    try {
-      tele.MainButton.onClick = () => {
-        tele.getMyName().then((name) => {
-          tele.sendMessage({
-            text: `Hi ${name}!`,
-          });
-        });
-      };
-    } catch (error) {
-      console.error(error);
-    } finally {
-      tele.MainButton.show();
-    }
-  }, []);
   return (
     <main className="flex min-h-screen flex-col items-center py-16 gap-4 px-4">
       <Heading as="h1" size="lg" className="text-center">
         Timetables
       </Heading>
-      <Select placeholder="Select option">
-        <option value="Confederation Centre" selected>
-          Confederation Centre
-        </option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+      <Select
+        placeholder="Select Bus stop"
+        defaultValue={"Confederation Centre"}
+      >
+        <option value="Confederation Centre">Confederation Centre</option>
+        <option value="upeibc">UPEI Browns Court</option>
       </Select>
       <Tabs variant="soft-rounded" colorScheme="green">
         <TabList border="2px solid #9FE199" className="rounded-full">
@@ -100,7 +72,6 @@ export default function Home() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-      <Button onClick={() => handleButton()}>Teletele</Button>
     </main>
   );
 }
