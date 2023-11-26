@@ -29,6 +29,8 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Learn More
 
+To see the things that I've learned so far, I've added that segment to a different file `learned.md`, adding things to it on an ongoing basis.
+
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
