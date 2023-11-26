@@ -62,11 +62,3 @@ Planned as per stages - build, test with people, feedback, repeat.
 
 - develop and execute against both short and long-term roadmaps
 - make effective tradeoffs between business impact, user experience, and a high-quality technical foundation
-
-#### Requirements [Dropbox - JOB](https://jobs.dropbox.com/listing/4797603?gh_src=aonhf1)
-
-- BS degree in Computer Science or related technical field involving coding (e.g., physics or mathematics), or equivalent technical experience
-- 2 - 5+ years of software engineering and/or work related industry experience
-- Previous success developing and shipping a large-scale web application with a user-empathetic mindset
-  Skilled at building user-facing applications and supporting systems and libraries on web and/or desktop using front-end technologies such as JavaScript, TypeScript, React, Angular, HTML5, CSS3
-  You can handle full-stack projects and are able to build a minimum working product quickly

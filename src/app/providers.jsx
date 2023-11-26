@@ -2,7 +2,7 @@
 
 import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider } from "@chakra-ui/react";
-import { Montserrat, Roboto } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { extendTheme } from "@chakra-ui/react";
 
 const montserrat = Montserrat({
