@@ -15,8 +15,7 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import Timings from "./components/timings";
-import { useState, useEffect } from "react";
+// import Timings from "./components/timings";
 
 export default function Home() {
   const timingsUpeiToRoyalty = [
@@ -86,8 +85,6 @@ export default function Home() {
     "21:53",
     "22:08",
   ];
-
-  const [allTimings, setAllTimings] = useState([]);
 
   const convertTimeTo12HourFormat = (time) => {
     // convert time to 12 hour format
