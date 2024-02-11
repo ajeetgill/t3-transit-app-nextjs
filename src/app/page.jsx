@@ -14,7 +14,10 @@ import {
   TabPanels,
   Tabs,
   Text,
+  Link,
 } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+
 // import Timings from "./components/timings";
 
 export default function Home() {
@@ -172,26 +175,26 @@ export default function Home() {
           border={"2px solid hsla(118, 43%, 50%, 1)"}
           rounded={"md"}
           paddingY={"4"}
+          bg={"hsla(118, 43%, 50%, 1)"}
         >
-          <h2>
-            <AccordionButton>
-              <Flex
-                textAlign="left"
-                alignItems={"center"}
-                gap={"4"}
-                width={"full"}
-              >
-                <h3 className="text-4xl font-black">01</h3>
-                <Flex direction={"column"}>
-                  <p className="text-[.8rem]">next bus at</p>
-                  <p className="text-2xl font-bold -mt-2">
-                    {showUpcomingBusTime()}
-                  </p>
-                </Flex>
+          <AccordionButton>
+            <Flex
+              textAlign="left"
+              alignItems={"center"}
+              gap={"4"}
+              width={"full"}
+            >
+              <h3 className="text-4xl font-black">01</h3>
+              <Flex direction={"column"}>
+                <p className="text-[.8rem]">next bus at</p>
+                <p className="text-2xl font-bold -mt-2">
+                  {showUpcomingBusTime()}
+                </p>
               </Flex>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
+            </Flex>
+            <AccordionIcon />
+          </AccordionButton>
+
           {/* <Timings
             busNumber={1}
             busStopName={"upeibc"}
@@ -202,6 +205,13 @@ export default function Home() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
+      <Link
+        href="https://forms.gle/tUBBx41cgNmxdqCd9"
+        isExternal
+        className="underline fixed bottom-4 right-4 -z-10 bg-slate-600 py-1 px-2 rounded-md text-white"
+      >
+        T32 Feedback/Collaboration <ExternalLinkIcon mx="2px" />
+      </Link>
     </main>
   );
 }
