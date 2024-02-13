@@ -92,10 +92,11 @@ export default function Home() {
   const convertTimeTo12HourFormat = (time) => {
     // convert time to 12 hour format
     // if hour is 00, convert to 12
-    const [hours, minutes] = time.split(":");
+    if(!time) {return `next day`;}
+
+    const [hours, minutes] = time?.split(":");
     const amPm = hours >= 12 ? "PM" : "AM";
     return `${hours % 12 || 12}:${minutes}`;
-    // return `${hours % 12}:${minutes}`;
   };
 
   const timeBox = () => {
@@ -103,7 +104,7 @@ export default function Home() {
 
     const getStyledTime = (timeVal) => {
       // styles each time according to early-day, mid-day, and late-day
-      const [time, amPm] = timeVal.split(" ");
+      const [time, amPm] = timeVal?.split(" ");
       if (parseInt(time) < 12) {
         return "bg-green-300";
       } else if (parseInt(time) < 18) {
@@ -131,16 +132,19 @@ export default function Home() {
 
   const showUpcomingBusTime = () => {
     // gets the localtime in 24hr format,
-    const currentTime = new Date().toTimeString().split(":");
+    // const currentTime = new Date().toTimeString()?.split(":");
+    const currentTime = ["05", "04"];
     //  get all timings from the timingsUpeiToRoyalty array, which are equal to current hour and greater than current minutes, if no such time is found, return the bus time for the next hour
     const nextBusTime = timingsUpeiToRoyalty.find((time) => {
-      const [hour, minutes] = time.split(":");
+      const [hour, minutes] = time?.split(":");
+      console.log(hour, minutes, currentTime[0], currentTime[1]);
       return (
         parseInt(hour) === parseInt(currentTime[0]) &&
         parseInt(minutes) > parseInt(currentTime[1])
       );
     });
-    return convertTimeTo12HourFormat(nextBusTime);
+    return nextBusTime;
+    // return convertTimeTo12HourFormat(nextBusTime);
   };
 
   return (
@@ -188,7 +192,7 @@ export default function Home() {
               <Flex direction={"column"}>
                 <p className="text-[.8rem]">next bus at</p>
                 <p className="text-2xl font-bold -mt-2">
-                  {showUpcomingBusTime()}
+                  {convertTimeTo12HourFormat(showUpcomingBusTime())}
                 </p>
               </Flex>
             </Flex>
