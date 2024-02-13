@@ -141,7 +141,7 @@ export default function Home() {
       <Text as="h3" className="uppercase font-bold">
         Towards Royalty Crossing
       </Text>
-      <Accordion allowToggle width={"full"}>
+      <Accordion allowToggle width={"full"} className="z-20">
         <AccordionItem
           border={"2px solid hsla(118, 43%, 50%, 1)"}
           rounded={"md"}
@@ -179,7 +179,7 @@ export default function Home() {
       <Link
         href="https://forms.gle/tUBBx41cgNmxdqCd9"
         isExternal
-        className="underline fixed bottom-4 right-4 -z-10 bg-slate-600 py-1 px-2 rounded-md text-white"
+        className="underline fixed bottom-4 right-4 z-10 bg-slate-600 py-1 px-2 rounded-md text-white"
       >
         T32 Feedback/Collaboration <ExternalLinkIcon mx="2px" />
       </Link>
