@@ -17,86 +17,20 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { timingsUpeiToRoyalty } from "./timetable";
 
 // import Timings from "./components/timings";
 
 export default function Home() {
-  const timingsUpeiToRoyalty = [
-    "6:53",
-    "7:08",
-    "7:23",
-    "7:38",
-    "7:53",
-    "8:08",
-    "8:23",
-    "8:38",
-    "8:53",
-    "9:08",
-    "9:23",
-    "9:38",
-    "9:53",
-    "10:08",
-    "10:23",
-    "10:38",
-    "10:53",
-    "11:08",
-    "11:23",
-    "11:38",
-    "11:53",
-    "12:08",
-    "12:23",
-    "12:38",
-    "12:53",
-    "13:08",
-    "13:23",
-    "13:38",
-    "13:53",
-    "14:08",
-    "14:23",
-    "14:38",
-    "14:53",
-    "15:08",
-    "15:23",
-    "15:38",
-    "15:53",
-    "16:08",
-    "16:18",
-    "16:28",
-    "16:38",
-    "16:48",
-    "16:58",
-    "17:08",
-    "17:18",
-    "17:28",
-    "17:38",
-    "17:48",
-    "18:08",
-    "18:23",
-    "18:38",
-    "18:53",
-    "19:08",
-    "19:23",
-    "19:38",
-    "19:53",
-    "20:08",
-    "20:23",
-    "20:38",
-    "20:53",
-    "21:08",
-    "21:23",
-    "21:38",
-    "21:53",
-    "22:08",
-  ];
 
-  const convertTimeTo12HourFormat = (time) => {
+  const convertTimeTo12HourFormat = (time, showAmPm = false) => {
     // convert time to 12 hour format
     // if hour is 00, convert to 12
-    if(!time) {return `next day`;}
-
     const [hours, minutes] = time?.split(":");
     const amPm = hours >= 12 ? "PM" : "AM";
-    return `${hours % 12 || 12}:${minutes}`;
+    return showAmPm
+      ? `${hours % 12 || 12}:${minutes} ${amPm}`
+      : `${hours % 12 || 12}:${minutes}`;
   };
 
   const timeBox = () => {
@@ -130,22 +64,55 @@ export default function Home() {
     );
   };
 
-  const showUpcomingBusTime = () => {
-    // gets the localtime in 24hr format,
-    // const currentTime = new Date().toTimeString()?.split(":");
-    const currentTime = ["05", "04"];
-    //  get all timings from the timingsUpeiToRoyalty array, which are equal to current hour and greater than current minutes, if no such time is found, return the bus time for the next hour
-    const nextBusTime = timingsUpeiToRoyalty.find((time) => {
-      const [hour, minutes] = time?.split(":");
-      console.log(hour, minutes, currentTime[0], currentTime[1]);
-      return (
-        parseInt(hour) === parseInt(currentTime[0]) &&
-        parseInt(minutes) > parseInt(currentTime[1])
-      );
-    });
-    return nextBusTime;
-    // return convertTimeTo12HourFormat(nextBusTime);
-  };
+  // const showUpcomingBusTime = () => {
+  //   // gets the localtime in 24hr format,
+  //   // const currentTime = new Date().toTimeString()?.split(":");
+  //   const currentTime = ["07", "04"];
+  //   const currentHour = currentTime[0];
+  //   const currentMinutes = currentTime[1];
+  //   // after last bus, return next day
+  //   if(currentTime[0] > 22) {
+  //     return `next day`;
+  //   }
+
+  //   console.log(`currentTime`, currentTime[0], currentTime[1]);
+  //   //  get all timings from the timingsUpeiToRoyalty array, which are equal to current hour and greater than current minutes, if no such time is found, return the bus time for the next hour
+  //   const nextBusTime = timingsUpeiToRoyalty.filter((timeStamp) => {
+  //     const [busHour, busMinutes] = timeStamp?.split(":");
+  //     return (
+  //       busHour === currentHour && busMinutes > currentMinutes
+  //     );
+      
+  //   });
+  //   console.log(`nextBusTime`, nextBusTime);
+  //   return nextBusTime[0];
+  //   // return convertTimeTo12HourFormat(nextBusTime);
+  // };
+  function showUpcomingBusTime( schedule = timingsUpeiToRoyalty) {
+    // Parse current time to minutes
+    const currentTimestamp = new Date().toTimeString()?.split(":");
+    console.log(`currentTimestamp`, currentTimestamp);
+    // const currentTime = ["07", "04"];
+    // const currentTime = "20:54";
+    // const currentTime = `${currentTimestamp[0]}:${currentTimestamp[1]}`;
+    // console.log(`currentTime`, currentTime);
+
+    const currentHours = +currentTimestamp[0];
+    const currentMinutes = +currentTimestamp[1];
+    const currentTotalMinutes = currentHours * 60 + currentMinutes;
+
+    // Convert schedule times to minutes and find the next departure time
+    for (const time of schedule) {
+      const [hours, minutes] = time.split(":").map(Number);
+      const totalMinutes = hours * 60 + minutes;
+      if (totalMinutes > currentTotalMinutes) {
+        return time; // Return the next departure time
+      }
+    }
+
+    // If no next departure time is found, return the first time of the next day or an indication that no more departures today.
+    return "No more departures today.";
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center py-16 gap-4 px-4">
@@ -192,7 +159,7 @@ export default function Home() {
               <Flex direction={"column"}>
                 <p className="text-[.8rem]">next bus at</p>
                 <p className="text-2xl font-bold -mt-2">
-                  {convertTimeTo12HourFormat(showUpcomingBusTime())}
+                  {convertTimeTo12HourFormat(showUpcomingBusTime(), true)}
                 </p>
               </Flex>
             </Flex>
