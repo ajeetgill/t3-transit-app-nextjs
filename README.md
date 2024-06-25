@@ -63,4 +63,4 @@ Planned as per stages - build, test with people, feedback, repeat.
 - KEEP Improving the app - based on a secret plan that's my mind has still to come-up with.
 
 - develop and execute against both short and long-term roadmaps
-- make effective tradeoffs between business impact, user experience, and a high-quality technical foundation
+- make effective tradeoffs between business impact, user experience, and a high-quality technical foundation.
